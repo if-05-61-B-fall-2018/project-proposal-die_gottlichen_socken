@@ -17,7 +17,11 @@ namespace Bot.Core.Commands
 
             embed.WithColor(Color.LightGrey);
             embed.WithAuthor("Help");
-            embed.WithDescription("**!help**                  describes all functions");
+            embed.WithDescription($"{"**!help**",20} {"describes all functions"} \n" +
+                "**!play <Youtube Link>**                  {bot joins your channel and play your requested music, -20} \n" +
+                "**!shop**                  {displays you all items which are available, -20}");
+            
+
 
             await Context.Channel.SendMessageAsync("",false,embed.Build());
         }
