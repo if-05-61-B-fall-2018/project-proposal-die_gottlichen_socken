@@ -8,7 +8,7 @@ using Discord.Commands;
 
 namespace Bot.Core.Commands
 {
-    class Shop : ModuleBase<SocketCommandContext>
+    public class Shop : ModuleBase<SocketCommandContext>
     {
         [Command("shopview")]
         public async Task Shopview()

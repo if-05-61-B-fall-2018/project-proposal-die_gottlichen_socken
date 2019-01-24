@@ -8,13 +8,13 @@ using Discord.Commands;
 
 namespace Bot.Core.Commands
 {
-    class Roles : ModuleBase<SocketCommandContext>
+    public class Roles : ModuleBase<SocketCommandContext>
     {
         [Command("roles")]
         public async Task Rolesc() 
         {
             EmbedBuilder embed = new EmbedBuilder();
-
+            
             embed.WithColor(Color.LightGrey);
             embed.WithAuthor("Roles");
             embed.WithDescription("**DJ**                  gives the user the rights to skip the Songs \n" +
