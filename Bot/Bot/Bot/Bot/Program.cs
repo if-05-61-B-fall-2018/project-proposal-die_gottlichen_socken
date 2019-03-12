@@ -38,8 +38,7 @@ namespace Bot
             client.Ready += Client_Ready;
             client.Log += Client_Log;
 
-            //await client.LoginAsync(TokenType.Bot, "NDk1OTM2MjU5MDEzNzM4NTA2.DpZhwA.Yvby9VWgi6xU4ezrZxGgxY9-6lc");
-            await client.LoginAsync(TokenType.Bot, "NDk1OTM2MjU5MDEzNzM4NTA2.DxXhpQ.yOHpqAnNiJJ85n9_sUQiRuwPkMo");
+            await client.LoginAsync(TokenType.Bot, "");
             await client.StartAsync();
 
             await Task.Delay(-1);
