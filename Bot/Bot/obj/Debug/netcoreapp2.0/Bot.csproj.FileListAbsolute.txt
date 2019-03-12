@@ -1,0 +1,11 @@
+D:\dcbot\Bot\Bot\bin\Debug\netcoreapp2.0\Bot.deps.json
+D:\dcbot\Bot\Bot\bin\Debug\netcoreapp2.0\Bot.runtimeconfig.json
+D:\dcbot\Bot\Bot\bin\Debug\netcoreapp2.0\Bot.runtimeconfig.dev.json
+D:\dcbot\Bot\Bot\bin\Debug\netcoreapp2.0\Bot.dll
+D:\dcbot\Bot\Bot\obj\Debug\netcoreapp2.0\Bot.csprojResolveAssemblyReference.cache
+D:\dcbot\Bot\Bot\obj\Debug\netcoreapp2.0\Bot.csproj.CoreCompileInputs.cache
+D:\dcbot\Bot\Bot\obj\Debug\netcoreapp2.0\Bot.AssemblyInfoInputs.cache
+D:\dcbot\Bot\Bot\obj\Debug\netcoreapp2.0\Bot.AssemblyInfo.cs
+D:\dcbot\Bot\Bot\bin\Debug\netcoreapp2.0\Bot.pdb
+D:\dcbot\Bot\Bot\obj\Debug\netcoreapp2.0\Bot.dll
+D:\dcbot\Bot\Bot\obj\Debug\netcoreapp2.0\Bot.pdb
