@@ -111,7 +111,7 @@ namespace Bot.Core.Commands
         public async Task SkipSong()
         {
             SongService.Next();
-            await ReplyAsync("Skipped song",0);
+            await ReplyAsync("Skipped song");
         }
 
         [Command("cursong")]
@@ -128,4 +128,3 @@ namespace Bot.Core.Commands
         }
     }
 }
-

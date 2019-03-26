@@ -8,6 +8,7 @@
   <ItemGroup>
     <PackageReference Include="Discord.Net" Version="1.0.2" />
     <PackageReference Include="NYoutubeDL" Version="0.10.1" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.7.0-preview3.19128.7" />
   </ItemGroup>
 
 </Project>

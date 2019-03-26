@@ -11,8 +11,12 @@ namespace Bot.Services.YouTube
         {
             var filename = Guid.NewGuid();
 
+            /*var youtubeDl = StartYoutubeDl(
+            $"-o Songs/{filename}.mp3 --restrict-filenames --extract-audio --no-overwrites --print-json --yes-playlist --audio-format mp3 " +
+             url);*/
+
             var youtubeDl = StartYoutubeDl(
-            $"-o Songs/{filename}.mp3 --restrict-filenames --extract-audio --no-overwrites --print-json --audio-format mp3 " +
+            $"-o Songs/{filename}.mp3 --restrict-filenames --extract-audio --no-overwrites --print-json --no-playlist --audio-format mp3 " +
              url);
 
             if (youtubeDl == null)
