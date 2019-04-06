@@ -31,3 +31,14 @@ C:\Users\Fabian\project-proposal-die_gottlichen_socken\Bot\Bot\Bot\Bot\obj\Debug
 C:\Users\Fabian\project-proposal-die_gottlichen_socken\Bot\Bot\Bot\Bot\obj\Debug\netcoreapp2.0\Bot.AssemblyInfo.cs
 C:\Users\Fabian\project-proposal-die_gottlichen_socken\Bot\Bot\Bot\Bot\obj\Debug\netcoreapp2.0\Bot.dll
 C:\Users\Fabian\project-proposal-die_gottlichen_socken\Bot\Bot\Bot\Bot\obj\Debug\netcoreapp2.0\Bot.pdb
+C:\Users\Philip\project-proposal-die_gottlichen_socken\Bot\Bot\Bot\Bot\bin\Debug\netcoreapp2.0\Bot.deps.json
+C:\Users\Philip\project-proposal-die_gottlichen_socken\Bot\Bot\Bot\Bot\bin\Debug\netcoreapp2.0\Bot.runtimeconfig.json
+C:\Users\Philip\project-proposal-die_gottlichen_socken\Bot\Bot\Bot\Bot\bin\Debug\netcoreapp2.0\Bot.runtimeconfig.dev.json
+C:\Users\Philip\project-proposal-die_gottlichen_socken\Bot\Bot\Bot\Bot\bin\Debug\netcoreapp2.0\Bot.dll
+C:\Users\Philip\project-proposal-die_gottlichen_socken\Bot\Bot\Bot\Bot\bin\Debug\netcoreapp2.0\Bot.pdb
+C:\Users\Philip\project-proposal-die_gottlichen_socken\Bot\Bot\Bot\Bot\obj\Debug\netcoreapp2.0\Bot.csproj.CoreCompileInputs.cache
+C:\Users\Philip\project-proposal-die_gottlichen_socken\Bot\Bot\Bot\Bot\obj\Debug\netcoreapp2.0\Bot.AssemblyInfoInputs.cache
+C:\Users\Philip\project-proposal-die_gottlichen_socken\Bot\Bot\Bot\Bot\obj\Debug\netcoreapp2.0\Bot.AssemblyInfo.cs
+C:\Users\Philip\project-proposal-die_gottlichen_socken\Bot\Bot\Bot\Bot\obj\Debug\netcoreapp2.0\Bot.dll
+C:\Users\Philip\project-proposal-die_gottlichen_socken\Bot\Bot\Bot\Bot\obj\Debug\netcoreapp2.0\Bot.pdb
+C:\Users\Philip\project-proposal-die_gottlichen_socken\Bot\Bot\Bot\Bot\obj\Debug\netcoreapp2.0\Bot.csprojAssemblyReference.cache
