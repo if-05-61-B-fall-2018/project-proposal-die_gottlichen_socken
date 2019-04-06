@@ -49,8 +49,8 @@ namespace Bot
             services = serviceCollection.BuildServiceProvider();
             services.GetService<SongService>().AudioPlaybackService = services.GetService<AudioPlaybackService>();
 
-            //await client.LoginAsync(TokenType.Bot, "NDk1OTM2MjU5MDEzNzM4NTA2.DpZhwA.Yvby9VWgi6xU4ezrZxGgxY9-6lc");
-            await client.LoginAsync(TokenType.Bot, "NDk1OTM2MjU5MDEzNzM4NTA2.D0MMqg.NX9EV1MflnmX4JP2rgpQQIxJMh4");
+            //await client.LoginAsync(TokenType.Bot, "");
+            await client.LoginAsync(TokenType.Bot, "");
             await client.StartAsync();
 
             await Task.Delay(-1);
