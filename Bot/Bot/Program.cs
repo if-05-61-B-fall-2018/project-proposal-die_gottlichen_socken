@@ -50,7 +50,7 @@ namespace Bot
             services.GetService<SongService>().AudioPlaybackService = services.GetService<AudioService>();
 
             //await client.LoginAsync(TokenType.Bot, "");
-            await client.LoginAsync(TokenType.Bot, "NDk1OTM2MjU5MDEzNzM4NTA2.XKw5Lg.u81KSNjPFtTdntchgRmMK5wNhZo");
+            await client.LoginAsync(TokenType.Bot, "");
             await client.StartAsync();
 
             await Task.Delay(-1);
