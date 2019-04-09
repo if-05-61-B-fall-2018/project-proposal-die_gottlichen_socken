@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using Bot.Resources.Database;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Text;
+
+using Bot.Resources.Database;
+
 using Discord;
 using Discord.Commands;
 
@@ -64,7 +66,7 @@ namespace Bot.Data
                     if (current.Coins >= coins)
                     {
                         current.Coins -= coins;
-                        addItem(userID, itemID);
+                        await addItem(userID, itemID);
                         DBContext.myUser.Update(current);
                     }
                     else
@@ -88,8 +90,8 @@ namespace Bot.Data
                     UserID = userID,
                     ItemID = itemID
                 });
+                await DBContext.SaveChangesAsync();
             }
-                
         }
     }
 }

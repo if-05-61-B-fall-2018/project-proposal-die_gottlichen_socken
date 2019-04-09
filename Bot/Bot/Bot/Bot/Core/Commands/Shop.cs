@@ -7,6 +7,9 @@ using System.Linq;
 
 using Discord;
 using Discord.Commands;
+using Discord.WebSocket;
+
+using Bot.Data;
 
 namespace Bot.Core.Commands
 {
@@ -55,9 +58,10 @@ namespace Bot.Core.Commands
                 await Context.Channel.SendMessageAsync("", false, embed.Build());
             }
             [Command("buy")]
-            public async Task Buy( string itemName)
+            public async Task Buy(string itemName)
             {
-                ulong userID = (Context.Message.Author as IUser).Id;
+                SocketGuildUser socketGuildUser = Context.User as SocketGuildUser;
+                ulong userID = socketGuildUser.Id;
                 int id;
                 int prize;
                 using (var DBContext = new SqliteDbContext())

@@ -13,8 +13,8 @@ namespace Bot.Resources.Database
         public DbSet<Items> items { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
-            string dblocation = Assembly.GetEntryAssembly().Location.Replace(@"bin\Debug\netcoreapp2.0",@"Data\Database.sqlite");
-            options.UseSqlite($"Data Source={ dblocation}Database.sqlite");
+            string dblocation = Assembly.GetEntryAssembly().Location.Replace(@"bin\Debug\netcoreapp2.0",@"Data\");
+            options.UseSqlite($"Data Source=Data\\Database.sqlite");
         }
     }
 }
