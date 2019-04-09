@@ -100,6 +100,41 @@ namespace Bot.Core.Commands
             }
         }
 
+        [Command("stream", RunMode = RunMode.Async)]
+        public async Task Stream(string url)
+        {
+            try
+            {
+                if (!Uri.IsWellFormedUriString(url, UriKind.Absolute))
+                {
+                    await ReplyAsync($"{Context.User.Mention} please provide a valid URL");
+                    return;
+                }
+
+                var downloadAnnouncement = await ReplyAsync($"{Context.User.Mention} attempting to open {url}");
+                var stream = await YoutubeDownloadService.GetLivestreamData(url);
+                await downloadAnnouncement.DeleteAsync();
+
+                if (stream == null)
+                {
+                    await ReplyAsync($"{Context.User.Mention} unable to open live stream, make sure its is a valid supported URL or contact a server admin.");
+                    return;
+                }
+
+                stream.Requester = Context.User.Mention;
+                stream.Url = url;
+
+
+                await ReplyAsync($"{Context.User.Mention} queued **{stream.Title}** | `{stream.DurationString}` | {url}");
+
+                SongService.Queue(stream);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Error while processing song requet: {e}");
+            }
+        }
+
         [Command("stop")]
         public async Task ClearQueue()
         {

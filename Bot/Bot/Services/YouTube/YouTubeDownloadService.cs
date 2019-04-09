@@ -32,6 +32,15 @@ namespace Bot.Services.YouTube
             return JsonConvert.DeserializeObject<DownloadedVideo>(jsonOutput);
         }
 
+        public async Task<StreamMetadata> GetLivestreamData(string url)
+        {
+            var youtubeDl = StartYoutubeDl("--print-json --skip-download " + url);
+            var jsonOutput = await youtubeDl.StandardOutput.ReadToEndAsync();
+            youtubeDl.WaitForExit();
+
+            return JsonConvert.DeserializeObject<StreamMetadata>(jsonOutput);
+        }
+
         private Process StartYoutubeDl(string arguments)
         {
             ProcessStartInfo ffmpeg = new ProcessStartInfo
