@@ -7,9 +7,10 @@ namespace Bot.Resources.Database
 {
     public class UserItems
     {
-        
-        public int ItemID { get; set; }
         [Key]
+        public int ID { get; set; }
+        public int ItemID { get; set; }
         public ulong UserID { get; set; }
+        public int Amount { get; set; }
     }
 }

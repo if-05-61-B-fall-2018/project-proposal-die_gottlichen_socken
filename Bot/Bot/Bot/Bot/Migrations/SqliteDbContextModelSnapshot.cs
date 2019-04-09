@@ -43,12 +43,16 @@ namespace Bot.Migrations
 
             modelBuilder.Entity("Bot.Resources.Database.UserItems", b =>
                 {
-                    b.Property<ulong>("UserID")
+                    b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<int>("Amount");
 
                     b.Property<int>("ItemID");
 
-                    b.HasKey("UserID");
+                    b.Property<ulong>("UserID");
+
+                    b.HasKey("ID");
 
                     b.ToTable("userItems");
                 });

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Bot.Migrations
 {
     [DbContext(typeof(SqliteDbContext))]
-    [Migration("20190406130658_Migration")]
+    [Migration("20190409123224_Migration")]
     partial class Migration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -45,12 +45,16 @@ namespace Bot.Migrations
 
             modelBuilder.Entity("Bot.Resources.Database.UserItems", b =>
                 {
-                    b.Property<ulong>("UserID")
+                    b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<int>("Amount");
 
                     b.Property<int>("ItemID");
 
-                    b.HasKey("UserID");
+                    b.Property<ulong>("UserID");
+
+                    b.HasKey("ID");
 
                     b.ToTable("userItems");
                 });

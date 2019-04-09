@@ -37,13 +37,15 @@ namespace Bot.Migrations
                 name: "userItems",
                 columns: table => new
                 {
-                    UserID = table.Column<ulong>(nullable: false)
+                    ID = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    ItemID = table.Column<int>(nullable: false)
+                    ItemID = table.Column<int>(nullable: false),
+                    UserID = table.Column<ulong>(nullable: false),
+                    Amount = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_userItems", x => x.UserID);
+                    table.PrimaryKey("PK_userItems", x => x.ID);
                 });
         }
 
