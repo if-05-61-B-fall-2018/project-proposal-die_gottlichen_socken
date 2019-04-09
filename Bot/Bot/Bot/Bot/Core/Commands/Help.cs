@@ -18,12 +18,13 @@ namespace Bot.Core.Commands
             embed.WithColor(Color.LightGrey);
             embed.WithAuthor("Help");
             embed.WithDescription($"{"**!help**",20} {"describes all functions"} \n" +
-                "**!play <Youtube Link>**                  {bot joins your channel and play your requested music, -20} \n" +
-                "**!skip**                  {skips the current song, -20} \n" +
-                "**!clearqueue                  {removes all queued songs from the music queue, -20 \n" +
-                "**!shop view**                  {displays you all items which are available, -20} \n" +
-                "**!shop login**                  {user gets 25 coins from a daily login, -20} \n" +
-                "**!shop buy <item name>**                  {this item will be added to your inventar, -20} \n");
+                "**!play <Youtube Link>**                  bot joins the channel and plays the requested music \n" +
+                "**!skip**                  skips the current song \n" +
+                "**!clearqueue**                  removes all queued songs from the music queue \n" +
+                "**!shop view**                  displays all items which are available \n" +
+                "**!shop login**                  user gets 25 coins for daily login \n" +
+                "**!shop buy <item name>**                  this item will be added to your inventar \n" +
+                "**!profile**                  displays username, coins and items of a user \n");
 
 
 
