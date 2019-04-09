@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Bot.Services
 {
-    public class AudioPlaybackService
+    public class AudioService
     {
         private Process _currentProcess;
 

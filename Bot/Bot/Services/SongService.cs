@@ -28,7 +28,7 @@ namespace Bot.Services
             _songQueue = new BufferBlock<IPlayable>();
         }
 
-        public AudioPlaybackService AudioPlaybackService { get; set; }
+        public AudioService AudioPlaybackService { get; set; }
 
         public IPlayable NowPlaying { get; private set; }
 
@@ -45,17 +45,6 @@ namespace Bot.Services
 
         public void Next()
         {
-            /* try
-             {
-                 AudioPlaybackService.StopCurrentOperation();
-                 NowPlaying = await _songQueue.ReceiveAsync();
-                 await AudioPlaybackService.SendAsync(_audio, NowPlaying.Uri, NowPlaying.Speed);
-                 NowPlaying.OnPostPlay();
-             }
-             catch (Exception e)
-             {
-                 Console.WriteLine($"Error while playing song: {e}");
-             }*/
             AudioPlaybackService.StopCurrentOperation();
         }
 
@@ -81,12 +70,9 @@ namespace Bot.Services
         {
             while (await _songQueue.OutputAvailableAsync())
             {
-                Console.WriteLine("Waiting for songs");
                 NowPlaying = await _songQueue.ReceiveAsync();
                 try
                 {
-                   // await _messageChannel?.SendMessageAsync($"Now playing **{NowPlaying.Title}** | `{NowPlaying.DurationString}` | requested by {NowPlaying.Requester} | {NowPlaying.Url}");
-
                      Console.WriteLine("Connecting to voice channel");
                      using (var audioClient = await _voiceChannel.ConnectAsync())
                      {

@@ -1,11 +1,8 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Bot.Services.YouTube
 {
-    public class StreamFormatMetadata
+    public class StreamFormat
     {
         [JsonProperty(PropertyName = "format")]
         public string Format { get; set; }

@@ -1,12 +1,9 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Bot.Services.YouTube
 {
-    public class StreamMetadata : IPlayable
+    public class StreamData : IPlayable
     {
         public string Url { get; set; }
 
@@ -25,7 +22,7 @@ namespace Bot.Services.YouTube
         public string ViewCount { get; set; }
 
         [JsonProperty(PropertyName = "formats")]
-        public StreamFormatMetadata[] Formats { get; set; }
+        public StreamFormat[] Formats { get; set; }
 
         public void OnPostPlay()
         {

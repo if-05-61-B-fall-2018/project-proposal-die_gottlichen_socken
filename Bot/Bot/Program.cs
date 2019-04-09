@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Discord;
 using Discord.WebSocket;
 using Discord.Commands;
-using Discord.Audio;
+
 using Microsoft.Extensions.DependencyInjection;
 using Bot.Services;
 using Bot.Services.YouTube;
@@ -47,7 +47,7 @@ namespace Bot
             ConfigureServices(serviceCollection);
 
             services = serviceCollection.BuildServiceProvider();
-            services.GetService<SongService>().AudioPlaybackService = services.GetService<AudioPlaybackService>();
+            services.GetService<SongService>().AudioPlaybackService = services.GetService<AudioService>();
 
             //await client.LoginAsync(TokenType.Bot, "");
             await client.LoginAsync(TokenType.Bot, "NDk1OTM2MjU5MDEzNzM4NTA2.XKw5Lg.u81KSNjPFtTdntchgRmMK5wNhZo");
@@ -88,8 +88,8 @@ namespace Bot
 
         private void ConfigureServices(IServiceCollection serviceCollection)
         {
-            serviceCollection.AddSingleton(new YouTubeDownloadService());
-            serviceCollection.AddSingleton(new AudioPlaybackService());
+            serviceCollection.AddSingleton(new YTDownloadService());
+            serviceCollection.AddSingleton(new AudioService());
             serviceCollection.AddSingleton(new SongService());
         }
     }

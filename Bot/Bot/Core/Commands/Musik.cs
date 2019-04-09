@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 using Bot.Services;
@@ -8,13 +6,12 @@ using Bot.Services.YouTube;
 
 using Discord;
 using Discord.Commands;
-using Discord.Audio;
 
 namespace Bot.Core.Commands
 {
     public class Musik:ModuleBase<SocketCommandContext>
     {
-        public YouTubeDownloadService YoutubeDownloadService { get; set; }
+        public YTDownloadService YoutubeDownloadService { get; set; }
 
         public SongService SongService { get; set; }
 
@@ -24,41 +21,15 @@ namespace Bot.Core.Commands
         {
             channel = channel ?? (Context.Message.Author as IGuildUser)?.VoiceChannel;
             SongService.SetMessageChannel(Context.Message.Channel); 
-            //channel = channel ?? (msg.Author as IGuildUser)?.VoiceChannel;
-            //if (channel == null) { await msg.Channel.SendMessageAsync("User must be in a voice channel, or a voice channel must be passed as an argument."); return; }
             if (channel == null) { await Context.Channel.SendMessageAsync("User must be in a voice channel"); return; }
             var audioClient = await channel.ConnectAsync();
             
             SongService.SetAudio(audioClient);
         }
 
-        /*private Process CreateStream(string path)
-         {
-             return Process.Start(new ProcessStartInfo
-             {
-                 FileName = "ffmpeg",
-                 Arguments = $"-hide_banner -loglevel panic -i \"{path}\" -ac 2 -f s16le -ar 48000 pipe:1",
-                 UseShellExecute = false,
-                 RedirectStandardOutput = true,
-             });
-         }
-
-         private async Task SendAsync(IAudioClient client, string path)
-         {
-             // Create FFmpeg using the previous example
-             using (var ffmpeg = CreateStream(path))
-             using (var output = ffmpeg.StandardOutput.BaseStream)
-             using (var discord = client.CreatePCMStream(AudioApplication.Mixed))
-             {
-                 try { await output.CopyToAsync(discord); }
-                 finally { await discord.FlushAsync(); }
-             }
-         }*/
-
         [Command("Play")]
         public async Task Request(string url ,IVoiceChannel channel =null)
         {
-            //await JoinChannel();
             await PlayMusic(url, 48);
         }
 
@@ -66,11 +37,6 @@ namespace Bot.Core.Commands
         {
             try
             {
-                /*if (!Uri.IsWellFormedUriString(url, UriKind.Absolute))
-                {
-                    await ReplyAsync($"{Context.User.Mention} please provide a valid song URL");
-                    return;
-                }*/
                 if(SongService.GetChannel()!=(Context.Message.Author as IGuildUser).VoiceChannel)
                     SongService.SetVoiceChannel((Context.Message.Author as IGuildUser).VoiceChannel);
                 var downloadAnnouncement = await ReplyAsync($"{Context.User.Mention} attempting to download {url}");
@@ -79,7 +45,7 @@ namespace Bot.Core.Commands
 
                 if (video == null)
                 {
-                    await ReplyAsync($"{Context.User.Mention} unable to queue song, make sure its is a valid supported URL or contact a server admin.");
+                    await ReplyAsync($"{Context.User.Mention} unable to queue song");
                     return;
                 }
 
@@ -89,10 +55,6 @@ namespace Bot.Core.Commands
                 await ReplyAsync($"{Context.User.Mention} queued **{video.Title}** | `{TimeSpan.FromSeconds(video.Duration)}` | {url}");
 
                 SongService.Queue(video);
-               /* if (SongService.GetQueueLenght() == 1)
-                {
-                    SongService.ProcessQueue();
-                }*/
             }
             catch (Exception e)
             {
@@ -105,19 +67,13 @@ namespace Bot.Core.Commands
         {
             try
             {
-                if (!Uri.IsWellFormedUriString(url, UriKind.Absolute))
-                {
-                    await ReplyAsync($"{Context.User.Mention} please provide a valid URL");
-                    return;
-                }
-
-                var downloadAnnouncement = await ReplyAsync($"{Context.User.Mention} attempting to open {url}");
+                var downloadAnnouncement = await ReplyAsync($"{Context.User.Mention} attempting to stream {url}");
                 var stream = await YoutubeDownloadService.GetLivestreamData(url);
                 await downloadAnnouncement.DeleteAsync();
 
                 if (stream == null)
                 {
-                    await ReplyAsync($"{Context.User.Mention} unable to open live stream, make sure its is a valid supported URL or contact a server admin.");
+                    await ReplyAsync($"{Context.User.Mention} unable to stream");
                     return;
                 }
 
@@ -149,7 +105,7 @@ namespace Bot.Core.Commands
             await ReplyAsync("Skipped song");
         }
 
-        [Command("cursong")]
+        [Command("info")]
         public async Task NowPlaying()
         {
             if (SongService.NowPlaying == null)
