@@ -69,7 +69,9 @@ namespace Bot.Core.Commands
                    id = DBContext.items.Where(x => x.IName == itemName).Select(x => x.ItemID).FirstOrDefault();
                    prize = DBContext.items.Where(x => x.IName == itemName).Select(x => x.Price).FirstOrDefault();
                 };
-                await Data.Data.removeCoins(userID, prize, id);
+                int i = Data.Data.removeCoins(userID, prize, id);
+                if (i == 0) await ReplyAsync(Context.User.Mention + " successfully bought " + itemName);
+                else await ReplyAsync("You dont have enough coins");
             }
 
             [Command("login")]

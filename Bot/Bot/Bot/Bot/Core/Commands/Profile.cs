@@ -14,9 +14,11 @@ namespace Bot.Core.Commands
     public class Profile : ModuleBase<SocketCommandContext>
     {
         [Command("Profile")]
-        public async Task UserProfile(ulong userID = 1)
+        public async Task UserProfile(IUser user = null)
         {
-            if (userID == 1) userID = (Context.Message.Author as IGuildUser).Id;
+            ulong userID=0;
+            if (user == null) { userID = (Context.Message.Author as IUser).Id;user = (Context.Message.Author as IUser); }
+            else userID = user.Id;
             EmbedBuilder embed = new EmbedBuilder();
 
             using (var DBContext = new SqliteDbContext())
@@ -26,21 +28,31 @@ namespace Bot.Core.Commands
                 var allitems = DBContext.userItems.AsEnumerable().Where(x => x.UserID == userID).Select(x => x.ItemID);
                 List<string> list = new List<string>();
 
-                foreach (var item in allitems)
+                var itemInfo = from x in DBContext.userItems.AsEnumerable()
+                               where x.UserID== userID
+                               select new
+                               {
+                                   id =x.ItemID,
+                                   amount =x.Amount
+                               };
+
+                foreach (var item in itemInfo)
                 {
-                    string name = DBContext.items.Where(x => x.ItemID == item).Select(x => x.IName).ToString();
-                    list.Add(name);
+                    string name = DBContext.items.Where(x => x.ItemID == item.id).Select(x => x.IName).FirstOrDefault();
+                    list.Add("---"+name+" "+item.amount+"x");
                 }
 
                 embed.WithColor(Color.LightGrey);
                 embed.WithAuthor("Profile");
-                embed.WithDescription("Name: " + current.UserID + "\n Coins: " + current.Coins + "\n Items: ");
+                string ret;
+                ret="**Name:** " + user.Username + "\n **Coins:** " + current.Coins + "\n **Items:** \n";
 
                 for (int i = 0; i < list.Count; i++)
                 {
-                    embed.WithDescription(list[i] + "\n");
+                    ret+=list[i] + "\n";
                 }
 
+                embed.WithDescription(ret);
                 await Context.Channel.SendMessageAsync("", false, embed.Build());
             }
         }

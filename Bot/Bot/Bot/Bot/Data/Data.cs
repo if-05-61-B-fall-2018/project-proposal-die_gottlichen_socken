@@ -48,8 +48,9 @@ namespace Bot.Data
             }
         }
 
-        public static async Task removeCoins(ulong userID, int coins, int itemID)
-        { 
+        public static int removeCoins(ulong userID, int coins, int itemID)
+        {
+            int ret=0;
             using (var DBContext = new SqliteDbContext())
             {
                 if (DBContext.myUser.Where(x => x.UserID == userID).Count() < 1)
@@ -57,8 +58,9 @@ namespace Bot.Data
                     DBContext.myUser.Add(new MyUser
                     {
                         UserID = userID,
-                        Coins = 100
+                        Coins = 0
                     });
+                    ret = 1;
                 }
                 else
                 {
@@ -66,22 +68,23 @@ namespace Bot.Data
                     if (current.Coins >= coins)
                     {
                         current.Coins -= coins;
-                        await addItem(userID, itemID);
+                        addItem(userID, itemID);
                         DBContext.myUser.Update(current);
+                        ret = 0;
                     }
                     else
                     {
-                        
+                        ret = 1;
                     }
                     
                 }
-                await DBContext.SaveChangesAsync();
-              
+                DBContext.SaveChangesAsync();
+                return ret;
             }
 
            
         }
-        public static async Task addItem(ulong userID, int itemID)
+        public static void addItem(ulong userID, int itemID)
         {
             using (var DBContext = new SqliteDbContext())
             {
@@ -109,7 +112,7 @@ namespace Bot.Data
                     DBContext.userItems.Update(current);
 
                 }
-                await DBContext.SaveChangesAsync();
+                DBContext.SaveChangesAsync();
             }
         }
     }
