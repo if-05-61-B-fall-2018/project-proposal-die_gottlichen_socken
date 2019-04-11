@@ -81,10 +81,11 @@ namespace Bot.Core.Commands
                 if (Data.Data.isAvailable(userID))
                 {
                     await Data.Data.addCoins(userID, 25);
+                    await Context.Message.Channel.SendMessageAsync(Context.User.Mention+" you logged in and received 25 coins!");
                 }
                 else
                 {
-                    await Context.Message.Channel.SendMessageAsync("You have already logged in today.");
+                    await Context.Message.Channel.SendMessageAsync(Context.User.Mention+" you have already logged in today.");
                 }
             }
         }
