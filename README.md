@@ -8,5 +8,5 @@ Read the comments in the given template carefully and try to align your ideas an
 ## Tools
 Preferably you should use LaTeX to get used to this tool.
 
-##Tutorial
+## Tutorial
 In the Easter_Realease pdf/word document
