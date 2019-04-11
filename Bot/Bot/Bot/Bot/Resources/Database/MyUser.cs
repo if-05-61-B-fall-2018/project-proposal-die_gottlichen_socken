@@ -11,6 +11,7 @@ namespace Bot.Resources.Database
         [Key]
         public ulong UserID { get; set; }
         public int Coins{get; set;}
+        public bool Loggedin { get; set; } = false;
 
     }
 }

@@ -26,7 +26,8 @@ namespace Bot.Migrations
                 {
                     UserID = table.Column<ulong>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Coins = table.Column<int>(nullable: false)
+                    Coins = table.Column<int>(nullable: false),
+                    Loggedin = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {

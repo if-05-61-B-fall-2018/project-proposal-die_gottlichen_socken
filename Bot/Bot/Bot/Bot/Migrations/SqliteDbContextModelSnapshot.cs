@@ -36,6 +36,8 @@ namespace Bot.Migrations
 
                     b.Property<int>("Coins");
 
+                    b.Property<bool>("Loggedin");
+
                     b.HasKey("UserID");
 
                     b.ToTable("myUser");

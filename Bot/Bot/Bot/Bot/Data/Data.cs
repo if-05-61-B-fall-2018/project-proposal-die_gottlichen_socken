@@ -8,7 +8,7 @@ using Bot.Resources.Database;
 
 using Discord;
 using Discord.Commands;
-
+using System.IO;
 
 namespace Bot.Data
 {
@@ -115,5 +115,71 @@ namespace Bot.Data
                 DBContext.SaveChangesAsync();
             }
         }
+        public static bool isAvailable(ulong userID)
+        {
+            using (var DBContext = new SqliteDbContext())
+            {
+                DateTime date = readDate();
+                DateTime curDate = DateTime.Today;
+                MyUser current;
+                var alliuser = DBContext.myUser.AsEnumerable().Select(x => x.UserID);
+                List<MyUser> users = new List<MyUser>();
+                foreach (var user in alliuser)
+                {
+                    current = DBContext.myUser.Where(x => x.UserID == user).FirstOrDefault();
+                    users.Add(current);
+                }
+
+                if (curDate != date)
+                {
+                    for (int i = 0; i < users.Count; i++)
+                    {
+                        users[i].Loggedin = false;
+                    }
+                    return true;
+                }
+                else
+                {
+                    for (int i = 0; i < users.Count; i++)
+                    {
+                        if (users[i].UserID == userID && users[i].Loggedin == false)
+                        {
+                            current = users[i];
+                            current.Loggedin = true;
+                            DBContext.myUser.Update(current);
+                            return true;
+                        }
+                        else if (users[i].UserID == userID && users[i].Loggedin)
+                        {
+                            return false;
+                        }
+                    }
+                    return false;
+                }
+            }
+
+        }
+
+        public static DateTime readDate()
+        {
+            DateTime date;
+            string path = @"Data\CurDate.txt";
+
+            using (StreamReader sr = File.OpenText(path))
+            {
+                if (sr.ReadLine() != null)
+                {
+                    date = DateTime.Parse(sr.ReadLine());
+                    return date;
+                }
+                else
+                {
+                    date = DateTime.Today;
+                    File.WriteAllText(path, date.ToString());
+                    return date;
+                }
+            }
+        }
+
     }
 }

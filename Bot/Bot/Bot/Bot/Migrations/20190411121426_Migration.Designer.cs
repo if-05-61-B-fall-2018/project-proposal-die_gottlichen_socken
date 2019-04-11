@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Bot.Migrations
 {
     [DbContext(typeof(SqliteDbContext))]
-    [Migration("20190409123224_Migration")]
+    [Migration("20190411121426_Migration")]
     partial class Migration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -37,6 +37,8 @@ namespace Bot.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<int>("Coins");
+
+                    b.Property<bool>("Loggedin");
 
                     b.HasKey("UserID");
 
