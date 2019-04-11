@@ -45,14 +45,15 @@ namespace Bot.Services
 
         public void Next()
         {
+            NowPlaying = null;
             AudioPlaybackService.StopCurrentOperation();
         }
 
         public IList<IPlayable> Clear()
         {
             _songQueue.TryReceiveAll(out var skippedSongs);
-
-
+            AudioPlaybackService.StopCurrentOperation();
+            NowPlaying = null;
             return skippedSongs;
         }
 

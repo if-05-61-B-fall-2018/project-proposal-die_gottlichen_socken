@@ -78,14 +78,14 @@ namespace Bot.Core.Commands
             public async Task Add()
             {
                 ulong userID = (Context.Message.Author as IUser).Id;
-                //if (Data.Data.isAvailable(userID))
-                //{
+                if (Data.Data.isAvailable(userID))
+                {
                     await Data.Data.addCoins(userID, 25);
-                //}
-                //else
-                //{
-                //    await Context.Message.Channel.SendMessageAsync("You have already logged in today.");
-                //}
+                }
+                else
+                {
+                    await Context.Message.Channel.SendMessageAsync("You have already logged in today.");
+                }
             }
         }
     }

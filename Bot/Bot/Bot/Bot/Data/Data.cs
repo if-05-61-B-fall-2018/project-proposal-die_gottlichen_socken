@@ -122,6 +122,7 @@ namespace Bot.Data
                 DateTime date = readDate();
                 DateTime curDate = DateTime.Today;
                 MyUser current;
+                string path = Directory.GetCurrentDirectory() + @"\Data\CurDate.txt";
                 var alliuser = DBContext.myUser.AsEnumerable().Select(x => x.UserID);
                 List<MyUser> users = new List<MyUser>();
                 foreach (var user in alliuser)
@@ -136,50 +137,57 @@ namespace Bot.Data
                     {
                         users[i].Loggedin = false;
                     }
-                    return true;
+                    File.WriteAllText(path, curDate.ToString(), Encoding.Default);
+
                 }
-                else
+                for (int i = 0; i < users.Count; i++)
                 {
-                    for (int i = 0; i < users.Count; i++)
+                    if (users[i].UserID == userID && users[i].Loggedin == false)
                     {
-                        if (users[i].UserID == userID && users[i].Loggedin == false)
-                        {
-                            current = users[i];
-                            current.Loggedin = true;
-                            DBContext.myUser.Update(current);
-                            return true;
-                        }
-                        else if (users[i].UserID == userID && users[i].Loggedin)
-                        {
-                            return false;
-                        }
+                        current = users[i];
+                        current.Loggedin = true;
+                        DBContext.myUser.Update(current);
+                        DBContext.SaveChangesAsync();
+                        return true;
                     }
-                    return false;
+                    else if (users[i].UserID == userID && users[i].Loggedin)
+                    {
+                        return false;
+                    }
                 }
+                return false;
+                
             }
 
         }
 
         public static DateTime readDate()
         {
-            DateTime date;
-            string path = @"Data\CurDate.txt";
+            DateTime date=new DateTime();
+            string path = Directory.GetCurrentDirectory()+@"\Data\CurDate.txt";
+
+            int i = 0;
 
             using (StreamReader sr = File.OpenText(path))
             {
-                if (sr.ReadLine() != null)
+                string text;
+                if ((text=sr.ReadLine()) != null)
                 {
-                    date = DateTime.Parse(sr.ReadLine());
+                    date = DateTime.Parse(text);
                     return date;
                 }
                 else
                 {
-                    date = DateTime.Today;
-                    File.WriteAllText(path, date.ToString());
-                    return date;
+                    i = 1;
                 }
             }
+            if (i == 1)
+            {
+                date = DateTime.Today;
+                File.WriteAllText(path, date.ToString(), Encoding.Default);
+                return date;
+            }
+            return date;
         }
-
     }
 }
