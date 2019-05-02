@@ -5,7 +5,10 @@ using System.Threading.Tasks;
 using Discord;
 using Discord.WebSocket;
 using Discord.Commands;
-using Discord.Audio;
+
+using Microsoft.Extensions.DependencyInjection;
+using Bot.Services;
+using Bot.Services.YouTube;
 
 namespace Bot
 {
@@ -14,9 +17,11 @@ namespace Bot
 
         private DiscordSocketClient client;
         private CommandService commmands;
+        private IServiceProvider services;
 
         static void Main(string[] args)
         {
+            DependencyHelper.TestDependencies();
             new Program().MainASync().GetAwaiter().GetResult();
         }
 
@@ -38,7 +43,14 @@ namespace Bot
             client.Ready += Client_Ready;
             client.Log += Client_Log;
 
-            await client.LoginAsync(TokenType.Bot, "");
+            IServiceCollection serviceCollection = new ServiceCollection();
+            ConfigureServices(serviceCollection);
+
+            services = serviceCollection.BuildServiceProvider();
+            services.GetService<SongService>().AudioPlaybackService = services.GetService<AudioService>();
+
+            //await client.LoginAsync(TokenType.Bot, "");
+            await client.LoginAsync(TokenType.Bot, "NDk1OTM2MjU5MDEzNzM4NTA2.XKw5Lg.u81KSNjPFtTdntchgRmMK5wNhZo");
             await client.StartAsync();
 
             await Task.Delay(-1);
@@ -51,22 +63,34 @@ namespace Bot
 
         private async Task Client_Ready()
         {
-            //await client.SetGameAsync("witch cute neko lolis :3");
+            await client.SetGameAsync("!help for help");
         }
 
         private async Task Client_MessageReceived(SocketMessage arg)
         {
             var msg = arg as SocketUserMessage;
             var context = new SocketCommandContext(client, msg);
+            IResult result;
 
             if (context.Message == null || context.Message.Content == "") return;
             if (context.User.IsBot) return;
 
             int argPos = 0;
-            if (!(msg.HasStringPrefix("!",ref argPos)||msg.HasMentionPrefix(client.CurrentUser, ref argPos))) return;
+            if (!(msg.HasStringPrefix("!", ref argPos) || msg.HasMentionPrefix(client.CurrentUser, ref argPos))) return;
 
-            var res = await commmands.ExecuteAsync(context, argPos);
-            if (!res.IsSuccess) Console.WriteLine($"[{DateTime.Now} | Commands ] {context.Message.Content} | Error: {res.ErrorReason}");
+            if (Uri.IsWellFormedUriString(msg.Content, UriKind.Absolute))
+            {
+                result = await commmands.ExecuteAsync(context, "sq " + msg.Content, services);
+            }
+            else result = await commmands.ExecuteAsync(context, argPos, services);
+            if (!result.IsSuccess) Console.WriteLine($"[{DateTime.Now} | Commands ] {context.Message.Content} | Error: {result.ErrorReason}");
+        }
+
+        private void ConfigureServices(IServiceCollection serviceCollection)
+        {
+            serviceCollection.AddSingleton(new YTDownloadService());
+            serviceCollection.AddSingleton(new AudioService());
+            serviceCollection.AddSingleton(new SongService());
         }
     }
 }
