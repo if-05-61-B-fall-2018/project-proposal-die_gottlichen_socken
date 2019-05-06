@@ -48,6 +48,42 @@ namespace Bot.Data
             }
         }
 
+        public static int realRemoveCoins(ulong userID, int coins)
+        {
+            int ret = 0;
+            using (var DBContext = new SqliteDbContext())
+            {
+                if (DBContext.myUser.Where(x => x.UserID == userID).Count() < 1)
+                {
+                    DBContext.myUser.Add(new MyUser
+                    {
+                        UserID = userID,
+                        Coins = 0
+                    });
+                    ret = 1;
+                }
+                else
+                {
+                    MyUser current = DBContext.myUser.Where(x => x.UserID == userID).FirstOrDefault();
+                    if (current.Coins >= coins)
+                    {
+                        current.Coins -= coins;
+                        DBContext.myUser.Update(current);
+                        ret = 0;
+                    }
+                    else
+                    {
+                        ret = 1;
+                    }
+
+                }
+                DBContext.SaveChangesAsync();
+                return ret;
+            }
+
+
+        }
+
         public static int removeCoins(ulong userID, int coins, int itemID)
         {
             int ret=0;
