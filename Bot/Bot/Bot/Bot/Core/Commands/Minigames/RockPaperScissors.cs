@@ -12,7 +12,7 @@ namespace Bot.Core.Commands.Minigames
 {
     public class RockPaperScissors : ModuleBase<SocketCommandContext>
     {
-        [Command("rockpaperscissor")]
+        [Command("rps")]
         public async Task RockPaperScissor(string input)
         {
             int x = Data.Data.realRemoveCoins(Context.Message.Author.Id, 10);

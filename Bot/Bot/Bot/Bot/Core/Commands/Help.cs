@@ -26,7 +26,10 @@ namespace Bot.Core.Commands
                 "**!shop view** displays all items which are available \n" +
                 "**!shop login** user gets 25 coins for daily login \n" +
                 "**!shop buy <item name>** this item will be added to your inventar \n" +
-                "**!profile** displays username, coins and items of a user \n");
+                "**!profile** displays username, coins and items of a user \n" +
+                "**!coinflip** starts minigame coinflip \n" +
+                "**!coinflipvs @username** starts minigame coinflip against user \n" +
+                "**!rps** starts minigame rock-paper-scissor \n");
 
 
 
