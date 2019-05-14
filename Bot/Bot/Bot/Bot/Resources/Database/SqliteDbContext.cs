@@ -11,6 +11,7 @@ namespace Bot.Resources.Database
         public DbSet<MyUser> myUser { get; set; }
         public DbSet<UserItems> userItems { get; set; }
         public DbSet<Items> items { get; set; }
+        public DbSet<MyBlacklist> myblacklist { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
             string dblocation = Assembly.GetEntryAssembly().Location.Replace(@"bin\Debug\netcoreapp2.0",@"Data\");
@@ -18,3 +19,4 @@ namespace Bot.Resources.Database
         }
     }
 }
+    

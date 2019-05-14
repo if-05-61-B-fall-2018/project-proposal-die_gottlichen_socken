@@ -21,6 +21,19 @@ namespace Bot.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "myblacklist",
+                columns: table => new
+                {
+                    block_id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    UserID = table.Column<ulong>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_myblacklist", x => x.block_id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "myUser",
                 columns: table => new
                 {
@@ -53,6 +66,9 @@ namespace Bot.Migrations
         {
             migrationBuilder.DropTable(
                 name: "items");
+
+            migrationBuilder.DropTable(
+                name: "myblacklist");
 
             migrationBuilder.DropTable(
                 name: "myUser");

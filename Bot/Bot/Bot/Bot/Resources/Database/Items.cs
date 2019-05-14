@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Bot.Resources.Database
 {
-    class Items
+    public class Items
     {
         [Key]
         public int ItemID { get; set; }

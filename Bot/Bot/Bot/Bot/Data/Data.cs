@@ -112,5 +112,85 @@ namespace Bot.Data
                 await DBContext.SaveChangesAsync();
             }
         }
+
+        public static int removeUserfromBlacklist(ulong userID)
+        {
+            using(var DBContext = new SqliteDbContext())
+            {
+                if(DBContext.myblacklist.Where(x => (userID == x.UserID)).Count() == 1)
+                {
+                    DBContext.myblacklist.Remove(DBContext.myblacklist.Where(x=>x.UserID==userID).FirstOrDefault());
+                    DBContext.SaveChangesAsync();
+                    return 0;
+                }
+                return 1;
+            }
+        } 
+
+        public static int addUserToBlacklist(ulong userID)
+        {
+            using (var DBContext = new SqliteDbContext())
+            {
+                if (DBContext.myblacklist.Where(x => (userID == x.UserID)).Count() == 0)
+                {
+                    int maxValue = 0;
+                    if (DBContext.userItems.Count() < 1) maxValue = 0;
+                    else maxValue = DBContext.myblacklist.Max(x => x.block_id);
+                    DBContext.myblacklist.Add(new MyBlacklist
+                    {
+                        block_id = maxValue,
+                        UserID = userID
+                    });
+                    DBContext.SaveChangesAsync();
+                    return 0;
+                }
+                return 1;
+            }
+        }
+
+        public static int getBlacklist(ulong userID)
+        {
+            using (var DBContext = new SqliteDbContext())
+            {
+                int i= DBContext.myblacklist.Where(x => (userID == x.UserID)).Count();
+                return i;
+            }
+        }
+
+        public static int realRemoveCoins(ulong userID, int coins)
+        {
+            int ret = 0;
+            using (var DBContext = new SqliteDbContext())
+            {
+                if (DBContext.myUser.Where(x => x.UserID == userID).Count() < 1)
+                {
+                    DBContext.myUser.Add(new MyUser
+                    {
+                        UserID = userID,
+                        Coins = 0
+                    });
+                    ret = 1;
+                }
+                else
+                {
+                    MyUser current = DBContext.myUser.Where(x => x.UserID == userID).FirstOrDefault();
+                    if (current.Coins >= coins)
+                    {
+                        current.Coins -= coins;
+                        DBContext.myUser.Update(current);
+                        ret = 0;
+                    }
+                    else
+                    {
+                        ret = 1;
+                    }
+
+                }
+                DBContext.SaveChangesAsync();
+                return ret;
+            }
+
+
+        }
     }
 }

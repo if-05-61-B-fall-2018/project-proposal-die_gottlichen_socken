@@ -34,6 +34,7 @@ namespace Bot
             });
 
             client.MessageReceived += Client_MessageReceived;
+            client.ReactionAdded += OnReaktionAdded;
             await commmands.AddModulesAsync(Assembly.GetEntryAssembly());
             client.Ready += Client_Ready;
             client.Log += Client_Log;
@@ -42,6 +43,56 @@ namespace Bot
             await client.StartAsync();
 
             await Task.Delay(-1);
+        }
+
+        private Task OnReaktionAdded(Cacheable<IUserMessage, ulong> cache, ISocketMessageChannel channel, SocketReaction reaction)
+        {
+            if (reaction.UserId == 495936259013738506) return Task.CompletedTask;
+            if (reaction.MessageId == Global.messageIDtoTrack)
+            {
+                if (Global.vsusr != null&& reaction.UserId == Global.vsusr.Id)
+                {
+                    if (Global.emoteMethod == "cointoss")
+                    {
+                        if(reaction.UserId == Global.thisusr.Id) return Task.CompletedTask;
+                        if (reaction.Emote.Name == "🆗")
+                        {
+                            Core.Commands.Minigames.CoinToss.CoinflipVsAccepted(channel);
+                        }
+                    }
+                    else if (Global.emoteMethod == "cointossChoose")
+                    {
+                        if (reaction.UserId == Global.thisusr.Id) return Task.CompletedTask;
+                        if (reaction.Emote.Name == "😑")
+                        {
+                            Core.Commands.Minigames.CoinToss.CoinflipVsChoose(channel, "head");
+                        }
+                        else if (reaction.Emote.Name == "🐿")
+                        {
+                            Core.Commands.Minigames.CoinToss.CoinflipVsChoose(channel, "tail");
+                        }
+                    }
+                }
+                else
+                {
+                    if (Global.emoteMethod == "rps")
+                    {
+                        if (reaction.Emote.Name == "📰")
+                        {
+                            Core.Commands.Minigames.RockPaperScissors.RPSChoose(channel, "paper");
+                        }
+                        else if (reaction.Emote.Name == "🌑")
+                        {
+                            Core.Commands.Minigames.RockPaperScissors.RPSChoose(channel, "rock");
+                        }
+                        else if (reaction.Emote.Name == "✂")
+                        {
+                            Core.Commands.Minigames.RockPaperScissors.RPSChoose(channel, "scissor");
+                        }
+                    }
+                }
+            }
+            return Task.CompletedTask;
         }
 
         private async Task Client_Log(LogMessage arg)
@@ -64,6 +115,7 @@ namespace Bot
 
             int argPos = 0;
             if (!(msg.HasStringPrefix("!",ref argPos)||msg.HasMentionPrefix(client.CurrentUser, ref argPos))) return;
+            if (Data.Data.getBlacklist(arg.Author.Id) == 1) return;
 
             var res = await commmands.ExecuteAsync(context, argPos);
             if (!res.IsSuccess) Console.WriteLine($"[{DateTime.Now} | Commands ] {context.Message.Content} | Error: {res.ErrorReason}");

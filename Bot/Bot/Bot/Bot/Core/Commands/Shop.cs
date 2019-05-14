@@ -15,7 +15,7 @@ namespace Bot.Core.Commands
 {
     public class Shop : ModuleBase<SocketCommandContext>
     {
-        [Group("shop"), Alias("KSK"), Summary("ShopGroup")]
+        [Group("shop"),Summary("ShopGroup")]
         public class ShopGroup: ModuleBase<SocketCommandContext>
         {
             [Command("view")]
