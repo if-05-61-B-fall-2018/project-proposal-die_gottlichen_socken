@@ -7183,11 +7183,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\chiar\\OneDrive\\Dokumente\\HTL Leonding\\3BHIF\\SYP\\project-proposal-die_gottlichen_socken\\Bot\\Bot\\Bot\\Bot\\Bot.csproj",
+      "projectUniqueName": "C:\\Users\\chiar\\OneDrive\\Dokumente\\HTL_Leonding\\3BHIF\\SYP\\project-proposal-die_gottlichen_socken\\Bot\\Bot\\Bot\\Bot\\Bot.csproj",
       "projectName": "Bot",
-      "projectPath": "C:\\Users\\chiar\\OneDrive\\Dokumente\\HTL Leonding\\3BHIF\\SYP\\project-proposal-die_gottlichen_socken\\Bot\\Bot\\Bot\\Bot\\Bot.csproj",
+      "projectPath": "C:\\Users\\chiar\\OneDrive\\Dokumente\\HTL_Leonding\\3BHIF\\SYP\\project-proposal-die_gottlichen_socken\\Bot\\Bot\\Bot\\Bot\\Bot.csproj",
       "packagesPath": "C:\\Users\\chiar\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\chiar\\OneDrive\\Dokumente\\HTL Leonding\\3BHIF\\SYP\\project-proposal-die_gottlichen_socken\\Bot\\Bot\\Bot\\Bot\\obj\\",
+      "outputPath": "C:\\Users\\chiar\\OneDrive\\Dokumente\\HTL_Leonding\\3BHIF\\SYP\\project-proposal-die_gottlichen_socken\\Bot\\Bot\\Bot\\Bot\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
