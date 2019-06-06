@@ -47,6 +47,21 @@ namespace Bot.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "pets",
+                columns: table => new
+                {
+                    PetID = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Name = table.Column<string>(nullable: true),
+                    affection = table.Column<int>(nullable: false),
+                    price = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_pets", x => x.PetID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "userItems",
                 columns: table => new
                 {
@@ -59,6 +74,21 @@ namespace Bot.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_userItems", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "userPets",
+                columns: table => new
+                {
+                    UserID = table.Column<ulong>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    PetID = table.Column<int>(nullable: false),
+                    PetName = table.Column<string>(nullable: true),
+                    affection = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_userPets", x => x.UserID);
                 });
         }
 
@@ -74,7 +104,13 @@ namespace Bot.Migrations
                 name: "myUser");
 
             migrationBuilder.DropTable(
+                name: "pets");
+
+            migrationBuilder.DropTable(
                 name: "userItems");
+
+            migrationBuilder.DropTable(
+                name: "userPets");
         }
     }
 }

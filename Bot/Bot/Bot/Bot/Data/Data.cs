@@ -192,5 +192,79 @@ namespace Bot.Data
 
 
         }
+
+        public static int addPet(ulong userID, string petName)
+        {
+            using (var DBContext = new SqliteDbContext())
+            {
+                if (DBContext.myUser.Where(x => x.UserID == userID).Count() < 1)
+                {
+                    DBContext.myUser.Add(new MyUser
+                    {
+                        UserID = userID,
+                        Coins = 0
+                    });
+                    return 1;
+                }
+                else
+                {
+                    Pets pet = DBContext.pets.Where(x => x.Name == petName).FirstOrDefault();
+                    MyUser current = DBContext.myUser.Where(x => x.UserID == userID).FirstOrDefault();
+                    if (current.Coins >= pet.price)
+                    {
+                        realRemoveCoins(userID, pet.price);
+                        DBContext.userPets.Add(new UserPets
+                        {
+                            UserID=userID,
+                            PetID=pet.PetID,
+                            PetName=pet.Name,
+                            affection=0
+                        });
+                    }
+                    else
+                    {
+                        return 1;
+                    }
+
+                }
+                DBContext.SaveChangesAsync();
+            }
+            return 0;
+        }
+
+        public static UserPets returnPet(ulong userID)
+        {
+            using (var DBContext = new SqliteDbContext())
+            {
+                UserPets userPet = DBContext.userPets.Where(x => x.UserID == userID).FirstOrDefault();
+                return userPet;
+            }
+        }
+
+        public static int renamePet(ulong userID, string name)
+        {
+            using (var DBContext = new SqliteDbContext())
+            {
+                UserPets userPet = DBContext.userPets.Where(x => x.UserID == userID).FirstOrDefault();
+                userPet.PetName = name;
+                DBContext.userPets.Update(userPet);
+                DBContext.SaveChangesAsync();
+            }
+            return 0;
+        }
+        public static void adjustStats(ulong userID,string stat, int amount)
+        {
+            if (stat == "affection")
+            {
+                using (var DBContext = new SqliteDbContext())
+                {
+                    UserPets userPet = DBContext.userPets.Where(x => x.UserID == userID).FirstOrDefault();
+                    userPet.affection+=amount;
+                    DBContext.userPets.Update(userPet);
+                    DBContext.SaveChangesAsync();
+                }
+            }
+            return;
+        }
     }
 }

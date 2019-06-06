@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Bot.Migrations
 {
     [DbContext(typeof(SqliteDbContext))]
-    [Migration("20190507064052_Migration")]
+    [Migration("20190521063329_Migration")]
     partial class Migration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -55,6 +55,22 @@ namespace Bot.Migrations
                     b.ToTable("myUser");
                 });
 
+            modelBuilder.Entity("Bot.Resources.Database.Pets", b =>
+                {
+                    b.Property<int>("PetID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
+
+                    b.Property<int>("affection");
+
+                    b.Property<int>("price");
+
+                    b.HasKey("PetID");
+
+                    b.ToTable("pets");
+                });
+
             modelBuilder.Entity("Bot.Resources.Database.UserItems", b =>
                 {
                     b.Property<int>("ID")
@@ -69,6 +85,22 @@ namespace Bot.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("userItems");
+                });
+
+            modelBuilder.Entity("Bot.Resources.Database.UserPets", b =>
+                {
+                    b.Property<ulong>("UserID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("PetID");
+
+                    b.Property<string>("PetName");
+
+                    b.Property<int>("affection");
+
+                    b.HasKey("UserID");
+
+                    b.ToTable("userPets");
                 });
 #pragma warning restore 612, 618
         }

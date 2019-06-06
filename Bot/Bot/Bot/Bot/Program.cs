@@ -102,7 +102,7 @@ namespace Bot
 
         private async Task Client_Ready()
         {
-            //await client.SetGameAsync("witch cute neko lolis :3");
+            //await client.SetGameAsync("with cute neko lolis :3");
         }
 
         private async Task Client_MessageReceived(SocketMessage arg)
@@ -114,7 +114,7 @@ namespace Bot
             if (context.User.IsBot) return;
 
             int argPos = 0;
-            if (!(msg.HasStringPrefix("!",ref argPos)||msg.HasMentionPrefix(client.CurrentUser, ref argPos))) return;
+            if (!(msg.HasStringPrefix("!", ref argPos) || msg.HasMentionPrefix(client.CurrentUser, ref argPos))) return; 
             if (Data.Data.getBlacklist(arg.Author.Id) == 1) return;
 
             var res = await commmands.ExecuteAsync(context, argPos);
