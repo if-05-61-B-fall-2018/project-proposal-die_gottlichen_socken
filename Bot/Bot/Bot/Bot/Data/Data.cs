@@ -266,5 +266,18 @@ namespace Bot.Data
             }
             return;
         }
+
+        public static string getrandomMeme()
+        {
+            string path="";
+            Random random = new Random(DateTime.Now.Millisecond);
+            using (var DBContext = new SqliteDbContext())
+            {
+                int maxValue = 0;
+                if (DBContext.userItems.Count() < 1) maxValue = 0;
+                else maxValue = DBContext.userItems.Max(x => x.ID);
+            }
+            return path;
+        }
     }
 }
