@@ -41,5 +41,11 @@ namespace Bot.Core.Commands
 
             await Context.Channel.SendMessageAsync("", false, embed.Build());
         }
+
+        [Command("screenshare")]
+        public async Task sc()
+        {
+            await ReplyAsync("https://discordapp.com/channels/"+Context.Guild.Id+"/"+(Context.User as IGuildUser).VoiceChannel.Id);
+        }
     }
 }

@@ -60,6 +60,8 @@ namespace Bot.Core.Commands.Pet
                         await ReplyAsync(user.Mention + " you dont have this item");
                         return;
                     }
+                    UserItems usritem = DBContext.userItems.Where(x => x.ItemID == item.ItemID).FirstOrDefault(); ;
+                    DBContext.userItems.Remove(usritem);
                     Data.Data.adjustStats(userID,"affection",10);
                 }
             }

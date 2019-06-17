@@ -269,15 +269,16 @@ namespace Bot.Data
 
         public static string getrandomMeme()
         {
-            string path="";
             Random random = new Random(DateTime.Now.Millisecond);
             using (var DBContext = new SqliteDbContext())
             {
                 int maxValue = 0;
                 if (DBContext.userItems.Count() < 1) maxValue = 0;
                 else maxValue = DBContext.userItems.Max(x => x.ID);
+                int rdn = random.Next(0, maxValue);
+                MyMemes meme = DBContext.memes.Where(x => x.MemeID == rdn).FirstOrDefault();
+                return meme.Path;
             }
-            return path;
         }
     }
 }
