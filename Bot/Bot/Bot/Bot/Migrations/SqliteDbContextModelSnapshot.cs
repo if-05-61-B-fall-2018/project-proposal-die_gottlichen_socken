@@ -29,6 +29,30 @@ namespace Bot.Migrations
                     b.ToTable("items");
                 });
 
+            modelBuilder.Entity("Bot.Resources.Database.MyBlacklist", b =>
+                {
+                    b.Property<int>("block_id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<ulong>("UserID");
+
+                    b.HasKey("block_id");
+
+                    b.ToTable("myblacklist");
+                });
+
+            modelBuilder.Entity("Bot.Resources.Database.MyMemes", b =>
+                {
+                    b.Property<int>("MemeID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Path");
+
+                    b.HasKey("MemeID");
+
+                    b.ToTable("memes");
+                });
+
             modelBuilder.Entity("Bot.Resources.Database.MyUser", b =>
                 {
                     b.Property<ulong>("UserID")
@@ -41,6 +65,22 @@ namespace Bot.Migrations
                     b.HasKey("UserID");
 
                     b.ToTable("myUser");
+                });
+
+            modelBuilder.Entity("Bot.Resources.Database.Pets", b =>
+                {
+                    b.Property<int>("PetID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
+
+                    b.Property<int>("affection");
+
+                    b.Property<int>("price");
+
+                    b.HasKey("PetID");
+
+                    b.ToTable("pets");
                 });
 
             modelBuilder.Entity("Bot.Resources.Database.UserItems", b =>
@@ -57,6 +97,22 @@ namespace Bot.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("userItems");
+                });
+
+            modelBuilder.Entity("Bot.Resources.Database.UserPets", b =>
+                {
+                    b.Property<ulong>("UserID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("PetID");
+
+                    b.Property<string>("PetName");
+
+                    b.Property<int>("affection");
+
+                    b.HasKey("UserID");
+
+                    b.ToTable("userPets");
                 });
 #pragma warning restore 612, 618
         }
