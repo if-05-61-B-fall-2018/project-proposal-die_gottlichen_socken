@@ -127,7 +127,7 @@ namespace Bot
             if (context.User.IsBot) return;
 
             int argPos = 0;
-            if (!(msg.HasStringPrefix("!", ref argPos) || msg.HasMentionPrefix(client.CurrentUser, ref argPos))) return;
+            if (!(msg.HasStringPrefix("!", ref argPos) || msg.HasMentionPrefix(client.CurrentUser, ref argPos))) { await checkHangman(context, msg); return; }
             if (Data.Data.getBlacklist(arg.Author.Id) == 1) return;
 
             if (Uri.IsWellFormedUriString(msg.Content, UriKind.Absolute))
@@ -143,6 +143,15 @@ namespace Bot
             serviceCollection.AddSingleton(new YTDownloadService());
             serviceCollection.AddSingleton(new AudioService());
             serviceCollection.AddSingleton(new SongService());
+        }
+
+        private async Task checkHangman(SocketCommandContext Context, SocketUserMessage msg)
+        {
+            if (!Global.isHMgame) return;
+            if (Global.thisusr.Id == msg.Author.Id)
+            {
+                await Core.Commands.Minigames.Hangman.CheckChar(Context, msg.ToString());
+            }
         }
     }
 }

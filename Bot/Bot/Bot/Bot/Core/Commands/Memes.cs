@@ -10,6 +10,11 @@ namespace Bot.Core.Commands
 {
     public class Memes:ModuleBase<SocketCommandContext>
     {
-       
+        [Command("meme")]
+        public async Task meme()
+        {
+            string path = Data.Data.getrandomMeme();
+            await Context.Channel.SendFileAsync(path, "lustig haha");
+        }
     }
 }

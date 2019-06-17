@@ -210,7 +210,7 @@ namespace Bot.Data
                 if (DBContext.myblacklist.Where(x => (userID == x.UserID)).Count() == 0)
                 {
                     int maxValue = 0;
-                    if (DBContext.userItems.Count() < 1) maxValue = 0;
+                    if (DBContext.myblacklist.Count() < 1) maxValue = 0;
                     else maxValue = DBContext.myblacklist.Max(x => x.block_id);
                     DBContext.myblacklist.Add(new MyBlacklist
                     {
@@ -342,16 +342,15 @@ namespace Bot.Data
             }
             return;
         }
-
+        static Random random = new Random(DateTime.Now.Millisecond);
         public static string getrandomMeme()
         {
-            Random random = new Random(DateTime.Now.Millisecond);
             using (var DBContext = new SqliteDbContext())
             {
                 int maxValue = 0;
-                if (DBContext.userItems.Count() < 1) maxValue = 0;
-                else maxValue = DBContext.userItems.Max(x => x.ID);
-                int rdn = random.Next(0, maxValue);
+                if (DBContext.memes.Count() < 1) maxValue = 0;
+                else maxValue = DBContext.memes.Max(x => x.MemeID);
+                int rdn = random.Next(1, maxValue);
                 MyMemes meme = DBContext.memes.Where(x => x.MemeID == rdn).FirstOrDefault();
                 return meme.Path;
             }

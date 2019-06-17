@@ -12,10 +12,10 @@ using Discord.WebSocket;
 
 namespace Bot.Core.Commands.Pet
 {
-    public class Pet
+    public class Pet : ModuleBase<SocketCommandContext>
     {
-        [Group("pet"), Alias("petus", "petrus"), Summary("ShopGroup")]
-        public class ShopGroup : ModuleBase<SocketCommandContext>
+        [Group("pet"), Alias("petus", "petrus"), Summary("PetGroup")]
+        public class PetGroup : ModuleBase<SocketCommandContext>
         {
             [Command("profile"), Alias("profilus")]
             public async Task petProfile(IUser user = null)
@@ -26,6 +26,8 @@ namespace Bot.Core.Commands.Pet
                 else userID = user.Id;
 
                 UserPets pet = Data.Data.returnPet(user.Id);
+
+                if (pet == null) { await ReplyAsync(user.Mention + " doesnt own a pet!"); return; }
 
                 EmbedBuilder embed = new EmbedBuilder();
                 embed.WithTitle("**" + pet.PetName + "**");
