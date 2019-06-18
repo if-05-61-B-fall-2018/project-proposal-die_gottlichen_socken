@@ -367,6 +367,7 @@ namespace Bot.Data
                         UserID = userID,
                         Coins = 0
                     });
+                    DBContext.SaveChangesAsync();
                 }
             }
         }
@@ -379,6 +380,7 @@ namespace Bot.Data
                 {
                     UserPets userPets = DBContext.userPets.Where(x => x.UserID == userID).FirstOrDefault();
                     DBContext.userPets.Remove(userPets);
+                    DBContext.SaveChangesAsync();
                     return 0;
                 }
                 catch (Exception e)

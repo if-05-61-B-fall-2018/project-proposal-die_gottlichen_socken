@@ -118,6 +118,8 @@ namespace Bot.Core.Commands.Pet
             [Command("remove"), Alias("removus")]
             public async Task petRemove(IUser user = null)
             {
+                ulong userID = 0;
+                if (user == null) { userID = (Context.Message.Author as IUser).Id; user = (Context.Message.Author as IUser); Data.Data.addUser(userID); }
                 using (var DBContext = new SqliteDbContext())
                 {
                     int i = DBContext.userPets.Where(x => x.UserID == user.Id).Count();
