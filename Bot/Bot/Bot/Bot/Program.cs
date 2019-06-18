@@ -129,6 +129,7 @@ namespace Bot
             int argPos = 0;
             if (!(msg.HasStringPrefix("!", ref argPos) || msg.HasMentionPrefix(client.CurrentUser, ref argPos))) { await checkHangman(context, msg); return; }
             if (Data.Data.getBlacklist(arg.Author.Id) == 1) return;
+            Data.Data.addUser(msg.Author.Id);
 
             if (Uri.IsWellFormedUriString(msg.Content, UriKind.Absolute))
             {

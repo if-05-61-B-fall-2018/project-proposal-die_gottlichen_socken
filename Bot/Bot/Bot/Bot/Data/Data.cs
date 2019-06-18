@@ -16,9 +16,9 @@ namespace Bot.Data
     {
         public static int getCoins(ulong userID)
         {
-            using(var DBContext = new SqliteDbContext())
+            using (var DBContext = new SqliteDbContext())
             {
-                if(DBContext.myUser.Where(x=> x.UserID == userID).Count() < 1)
+                if (DBContext.myUser.Where(x => x.UserID == userID).Count() < 1)
                 {
                     return 0;
                 }
@@ -28,9 +28,9 @@ namespace Bot.Data
 
         public static async Task addCoins(ulong userID, int coins)
         {
-            using(var DBContext = new SqliteDbContext())
+            using (var DBContext = new SqliteDbContext())
             {
-                if(DBContext.myUser.Where(x=> x.UserID == userID).Count() < 1)
+                if (DBContext.myUser.Where(x => x.UserID == userID).Count() < 1)
                 {
                     DBContext.myUser.Add(new MyUser
                     {
@@ -50,7 +50,7 @@ namespace Bot.Data
 
         public static int removeCoins(ulong userID, int coins, int itemID)
         {
-            int ret=0;
+            int ret = 0;
             using (var DBContext = new SqliteDbContext())
             {
                 if (DBContext.myUser.Where(x => x.UserID == userID).Count() < 1)
@@ -76,28 +76,28 @@ namespace Bot.Data
                     {
                         ret = 1;
                     }
-                    
+
                 }
                 DBContext.SaveChangesAsync();
                 return ret;
             }
 
-           
+
         }
         public static void addItem(ulong userID, int itemID)
         {
             using (var DBContext = new SqliteDbContext())
             {
-                if (DBContext.userItems.Where(x => (x.UserID == userID)&&(x.ItemID==itemID) ).Count() < 1)
+                if (DBContext.userItems.Where(x => (x.UserID == userID) && (x.ItemID == itemID)).Count() < 1)
                 {
-                    int maxValue=0;
+                    int maxValue = 0;
                     if (DBContext.userItems.Count() < 1) maxValue = 0;
-                    else  maxValue = DBContext.userItems.Max(x => x.ID);
-                    
+                    else maxValue = DBContext.userItems.Max(x => x.ID);
+
                     int id = maxValue += 1;
                     DBContext.userItems.Add(new UserItems
                     {
-                        ID=id,
+                        ID = id,
                         UserID = userID,
                         ItemID = itemID,
                         Amount = 1
@@ -105,7 +105,7 @@ namespace Bot.Data
                 }
                 else
                 {
-                    int i=DBContext.userItems.Where(x => x.UserID == userID).Select(x => x.Amount).FirstOrDefault();
+                    int i = DBContext.userItems.Where(x => x.UserID == userID).Select(x => x.Amount).FirstOrDefault();
                     i += 1;
                     UserItems current = DBContext.userItems.Where(x => x.UserID == userID).FirstOrDefault();
                     current.Amount = i;
@@ -156,22 +156,22 @@ namespace Bot.Data
                     }
                 }
                 return false;
-                
+
             }
 
         }
 
         public static DateTime readDate()
         {
-            DateTime date=new DateTime();
-            string path = Directory.GetCurrentDirectory()+@"\Data\CurDate.txt";
+            DateTime date = new DateTime();
+            string path = Directory.GetCurrentDirectory() + @"\Data\CurDate.txt";
 
             int i = 0;
 
             using (StreamReader sr = File.OpenText(path))
             {
                 string text;
-                if ((text=sr.ReadLine()) != null)
+                if ((text = sr.ReadLine()) != null)
                 {
                     date = DateTime.Parse(text);
                     return date;
@@ -367,6 +367,23 @@ namespace Bot.Data
                         UserID = userID,
                         Coins = 0
                     });
+                }
+            }
+        }
+
+        public static int removePet(ulong userID)
+        {
+            using (var DBContext = new SqliteDbContext())
+            {
+                try
+                {
+                    UserPets userPets = DBContext.userPets.Where(x => x.UserID == userID).FirstOrDefault();
+                    DBContext.userPets.Remove(userPets);
+                    return 0;
+                }
+                catch (Exception e)
+                {
+                    return 1;
                 }
             }
         }

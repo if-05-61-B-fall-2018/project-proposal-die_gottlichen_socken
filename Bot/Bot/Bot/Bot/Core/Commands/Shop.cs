@@ -26,30 +26,28 @@ namespace Bot.Core.Commands
                 embed.WithColor(Color.LightGrey);
                 embed.WithAuthor("Shopview");
                 embed.WithDescription("**FOOD**\n" +
-                    "**carrot**                  20 coins\n" +
-                    "**salad**                  15 coins\n" +
-                    "**steak**                  50 coins\n" +
-                    "**pineapple**                  30 coins\n" +
-                    "**milk**                  15 coins\n" +
-                    "**fish**                  30 coins\n" +
-                    "**apple**                  20 coins\n" +
-                    "**mango**                  25 coins\n" +
-                    "**chop**                  40 coins\n" +
+                    "**carrot**: 70 coins\n" +
+                    "**salad**: 50 coins\n" +
+                    "**apple**: 50 coins\n" +
+                    "**mango**: 70 coins\n" +
+                    "**pineapple**: 80 coins\n" +
+                    "**milk**: 50 coins\n" +
+                    "**steak**: 150 coins\n" +
+                    "**chop**: 120 coins\n" +
+                    "**fish**: 90 coins\n" +
                     "\n" +
                     "**PETS**\n" +
-                    "**cat**                  150 coins\n" +
-                    "**dog**                  150 coins\n" +
-                    "**bunny**                  100 coins\n" +
-                    "**unicorn**                  300 coins\n" +
-                    "**wolf**                  200 coins\n" +
+                    "**cat**: 1500 coins\n" +
+                    "**dog**: 1500 coins\n" +
+                    "**bunny**: 1000 coins\n" +
+                    "**unicorn**: 10000 coins\n" +
+                    "**wolf**: 5000 coins\n" +
                     "\n" +
                     "**ITEMS**\n" +
-                    "**ball**                  10 coins\n" +
-                    "**name tag**                  50 coins\n" +
-                    "**leash**                  25 coins\n" +
-                    "**rainbow**                  45 coins\n" +
-                    "**little house**                  30 coins\n" +
-                    "\n");
+                    "**ball**: 50 coins\n" +
+                    "**leash**: 80 coins\n" +
+                    "**rainbow**: 120 coins\n" +
+                    "**little house**: 160 coins\n");
 
                 await Context.Channel.SendMessageAsync("", false, embed.Build());
             }

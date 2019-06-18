@@ -38,7 +38,7 @@ namespace Bot.Core.Commands.Pet
                 await Context.Channel.SendMessageAsync("", false, embed.Build());
             }
 
-            [Command("feed")]
+            [Command("feed"), Alias("feedrus")]
             public async Task petFeed(string food)
             {
                 ulong userID = 0;
@@ -68,7 +68,7 @@ namespace Bot.Core.Commands.Pet
                 }
             }
 
-            [Command("buy")]
+            [Command("buy"), Alias("buyus")]
             public async Task petBuy(string name)
             {
                 ulong userID = 0;
@@ -94,7 +94,7 @@ namespace Bot.Core.Commands.Pet
                 }
             }
 
-            [Command("rename")]
+            [Command("rename"), Alias("renamus")]
             public async Task petRename(string name)
             {
                 ulong userID = 0;
@@ -112,6 +112,28 @@ namespace Bot.Core.Commands.Pet
                     }
                     Data.Data.renamePet(userID,name);
                     await ReplyAsync(user.Mention + " you renamed your pet to "+name);
+                }
+            }
+
+            [Command("remove"), Alias("removus")]
+            public async Task petRemove(IUser user = null)
+            {
+                using (var DBContext = new SqliteDbContext())
+                {
+                    int i = DBContext.userPets.Where(x => x.UserID == user.Id).Count();
+                    if (i == 0)
+                    {
+                        await ReplyAsync(user.Mention + " dont own a pet!");
+                    }
+                    int success =Data.Data.removePet(user.Id);
+                    if (success == 0)
+                    {
+                        await ReplyAsync("Your pet has been removed!");
+                    }
+                    else
+                    {
+                        await ReplyAsync("An error occurred while removing the pet!");
+                    }
                 }
             }
         }
