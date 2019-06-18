@@ -49,11 +49,7 @@ namespace Bot.Core.Commands
                     "**leash**                  25 coins\n" +
                     "**rainbow**                  45 coins\n" +
                     "**little house**                  30 coins\n" +
-                    "\n" +
-                    "**ROLES**\n" +
-                    "**DJ**                  150 coins\n" +
-                    "**Color**                  50 coins\n" +
-                    "**Custom role**                  100 coins\n");
+                    "\n");
 
                 await Context.Channel.SendMessageAsync("", false, embed.Build());
             }

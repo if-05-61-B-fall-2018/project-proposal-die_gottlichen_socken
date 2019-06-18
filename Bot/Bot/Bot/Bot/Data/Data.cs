@@ -355,5 +355,20 @@ namespace Bot.Data
                 return meme.Path;
             }
         }
+
+        public static void addUser(ulong userID)
+        {
+            using (var DBContext = new SqliteDbContext())
+            {
+                if (DBContext.myUser.Where(x => x.UserID == userID).Count() < 1)
+                {
+                    DBContext.myUser.Add(new MyUser
+                    {
+                        UserID = userID,
+                        Coins = 0
+                    });
+                }
+            }
+        }
     }
 }

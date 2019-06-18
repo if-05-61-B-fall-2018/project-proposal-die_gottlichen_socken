@@ -64,7 +64,7 @@ namespace Bot.Core.Commands.Pet
                     }
                     UserItems usritem = DBContext.userItems.Where(x => x.ItemID == item.ItemID).FirstOrDefault(); ;
                     DBContext.userItems.Remove(usritem);
-                    Data.Data.adjustStats(userID,"affection",10);
+                    Data.Data.adjustStats(userID,"affection",item.Price);
                 }
             }
 

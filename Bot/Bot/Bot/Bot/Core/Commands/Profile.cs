@@ -17,7 +17,7 @@ namespace Bot.Core.Commands
         public async Task UserProfile(IUser user = null)
         {
             ulong userID=0;
-            if (user == null) { userID = (Context.Message.Author as IUser).Id;user = (Context.Message.Author as IUser); }
+            if (user == null) { userID = (Context.Message.Author as IUser).Id;user = (Context.Message.Author as IUser); Data.Data.addUser(userID); }
             else userID = user.Id;
             EmbedBuilder embed = new EmbedBuilder();
 
